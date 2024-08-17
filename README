@@ -621,4 +621,69 @@ let arr = [1, 2, 3, 4];
 console.log(arr.includes(2)); // আউটপুট: true
 console.log(arr.includes(5)); // আউটপুট: false
 সংক্ষেপে:
-জাভাস্ক্রিপ্টের অ্যারে প্রপার্টি এবং মেথডগুলি বিভিন্ন ধরনের কাজ করতে ব্যবহৃত হয়, যেমন উপাদান যোগ করা, সরানো, অনুসন্ধান করা, এবং অন্যান্য নানা ধরনের কার্য সম্পাদন করা। এই মেথড এবং প্রপার্টিগুলি অ্যারের সাথে কাজ করতে আমাদের সহজ এবং কার্যকর উপায় প্রদান করে।
+জাভাস্ক্রিপ্টের অ্যারে প্রপার্টি এবং মেথডগুলি বিভিন্ন ধরনের কাজ করতে ব্যবহৃত হয়, যেমন উপাদান যোগ করা, সরানো, অনুসন্ধান করা, এবং অন্যান্য নানা ধরনের কার্য সম্পাদন করা। এই মেথড এবং প্রপার্টিগুলি 
+অ্যারের সাথে কাজ করতে আমাদের সহজ এবং কার্যকর উপায় প্রদান করে।
+
+
+
+>>>>>>>>>>>This Kyword<<<<<<<<<<<<<<
+-এ this keyword-এর behavior context-এর উপর নির্ভর করে পরিবর্তিত হয়। 
+যদি কোনো function-এর ভিতরে this থাকে, তাহলে this window object-কে নির্দেশ করে, কিনা তা নির্ভর করে function কীভাবে call করা হচ্ছে তার উপর। নিচে কিছু context অনুযায়ী this কিভাবে কাজ করে তা ব্যাখ্যা করা হলঃ
+
+Global Context (window object):
+
+
+
+>>console.log(this);
+এখানে this window object-কে নির্দেশ করবে।
+
+
+
+>>Simple Function Call:
+function simpleFunction() {
+  console.log(this);
+}
+simpleFunction();
+এই situation-এ this window object-কে নির্দেশ করবে কারণ এটি একটি simple function call।
+
+
+
+>>Method in an Object:
+const obj = {
+  name: 'Object',
+  display: function() {
+    console.log(this.name);
+  }
+};
+obj.display();
+এখানে this obj-কে নির্দেশ করবে, কারণ display methodটি obj-এর context-এ call করা হয়েছে।
+
+
+
+>>Constructor Function:
+function Person(name) {
+  this.name = name;
+}
+const person1 = new Person('John');
+console.log(person1.name);
+এখানে this নতুন তৈরি করা object (person1)-কে নির্দেশ করবে।
+
+
+
+>>Arrow Function:
+const arrowFunction = () => {
+  console.log(this);
+};
+arrowFunction();
+Arrow function-এর context-এ this তার enclosing scope থেকে this কে নেয়। যদি এটি global context-এ থাকে, তাহলে this window object-কে নির্দেশ করবে।
+
+
+
+>>Event Handler:
+document.getElementById('myButton').addEventListener('click', function() {
+  console.log(this);
+});
+এখানে this event target (যেমন, button element)-কে নির্দেশ করবে।
+
+এভাবে this keyword-এর behavior context অনুযায়ী পরিবর্তিত হয়। 
+Context অনুযায়ী this কী নির্দেশ করবে, তা বুঝতে হবে।
