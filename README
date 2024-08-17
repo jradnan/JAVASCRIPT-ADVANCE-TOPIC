@@ -687,3 +687,70 @@ document.getElementById('myButton').addEventListener('click', function() {
 
 এভাবে this keyword-এর behavior context অনুযায়ী পরিবর্তিত হয়। 
 Context অনুযায়ী this কী নির্দেশ করবে, তা বুঝতে হবে।
+
+
+
+>>>>>>>>JavaScript-এ call(), apply(), এবং bind() methods function-এর context (this) পরিবর্তন করার জন্য ব্যবহৃত হয়। 
+এই তিনটি method function execution এবং argument passing এর পদ্ধতিতে কিছুটা পার্থক্য করে। 
+নিচে প্রতিটি method-এর ব্যাখ্যা দেওয়া হলঃ<<<<<<<<<<
+
+>>call() Method
+call() method-এর মাধ্যমে আমরা যেকোনো function-এর context (this) পরিবর্তন করতে পারি এবং সাথে সাথে 
+arguments pass করতে পারি।\
+উদাহরণঃ
+const person = {
+  fullName: function() {
+    return this.firstName + " " + this.lastName;
+  }
+};
+
+const person1 = {
+  firstName: "John",
+  lastName: "Doe"
+};
+
+console.log(person.fullName.call(person1)); // Output: John Doe
+উপরে person1 object-এর context person object-এর fullName function-এর জন্য 
+নির্ধারণ করা হয়েছে call() method-এর মাধ্যমে।
+
+
+>>apply() Method
+apply() method-ও call() method-এর মতই context (this) পরিবর্তন করতে ব্যবহৃত হয়। 
+তবে, এটি arguments গুলোকে একটি array আকারে গ্রহণ করে।
+উদাহরণঃ
+const person = {
+  fullName: function(city, country) {
+    return this.firstName + " " + this.lastName + ", " + city + ", " + country;
+  }
+};
+
+const person1 = {
+  firstName: "John",
+  lastName: "Doe"
+};
+
+console.log(person.fullName.apply(person1, ["Oslo", "Norway"])); // Output: John Doe, Oslo, Norway
+উপরে person1 object-এর context person object-এর fullName function-এর জন্য 
+নির্ধারণ করা হয়েছে apply() method-এর মাধ্যমে এবং arguments গুলো array আকারে pass করা হয়েছে।
+
+
+>>bind() Method
+bind() method একটি নতুন function তৈরি করে যেখানে নির্দিষ্ট context (this) এবং প্রাথমিক arguments গুলো নির্ধারণ
+করা থাকে। নতুন function টি পরবর্তীতে যেকোনো সময় call করা যেতে পারে।
+উদাহরণঃ
+const person = {
+  fullName: function() {
+    return this.firstName + " " + this.lastName;
+  }
+};
+
+const person1 = {
+  firstName: "John",
+  lastName: "Doe"
+};
+
+const fullNameFunc = person.fullName.bind(person1);
+console.log(fullNameFunc()); // Output: John Doe
+উপরে person1 object-এর context person object-এর fullName function-এর জন্য 
+নির্ধারণ করা হয়েছে bind() method-এর মাধ্যমে। এবং fullNameFunc নতুন function হিসাবে তৈরি হয়েছে 
+যা পরবর্তীতে call করা হয়েছে।
