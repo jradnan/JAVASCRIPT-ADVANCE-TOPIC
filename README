@@ -754,3 +754,161 @@ console.log(fullNameFunc()); // Output: John Doe
 উপরে person1 object-এর context person object-এর fullName function-এর জন্য 
 নির্ধারণ করা হয়েছে bind() method-এর মাধ্যমে। এবং fullNameFunc নতুন function হিসাবে তৈরি হয়েছে 
 যা পরবর্তীতে call করা হয়েছে।
+
+
+>>>>>>>>Copy by Value (মান দ্বারা কপি করা):<<<<<<<<<<<
+JavaScript এ প্রিমিটিভ টাইপের (যেমন, number, string, boolean, null, undefined, symbol) ডেটা Copy by Value হিসাবে 
+কপি হয়। এর মানে হলো ভ্যারিয়েবলের মান কপি করা হয় এবং তারা আলাদা আলাদা মেমোরি স্পেসে থাকে।
+উদাহরণঃ
+let x = 10;
+let y = x; // Copy by Value
+y = 20;
+
+console.log(x); // Output: 10
+console.log(y); // Output: 20
+এখানে, x এর মান 10 এবং y এর মানও প্রথমে 10 হয়। কিন্তু y এর মান পরিবর্তন করা হলে x এর মান অপরিবর্তিত থাকে।
+
+>>>>>>>>>>>>>>>>Copy by Reference (রেফারেন্স দ্বারা কপি করা):<<<<<<<<<<<
+JavaScript এ অবজেক্ট এবং অ্যারের মতো নন-প্রিমিটিভ টাইপের ডেটা Copy by Reference হিসাবে কপি হয়। 
+এর মানে হলো ভ্যারিয়েবল শুধুমাত্র সেই অবজেক্ট বা অ্যারের রেফারেন্স (ঠিকানা) কপি করে এবং তারা একই মেমোরি 
+স্পেস শেয়ার করে।
+উদাহরণ:
+
+let obj1 = { name: 'John', age: 30 };
+let obj2 = obj1; // Copy by Reference
+obj2.age = 40;
+
+
+console.log(obj1.age); // Output: 40
+console.log(obj2.age); // Output: 40
+
+এখানে, obj1 এবং obj2 একই অবজেক্টকে রেফারেন্স করে। তাই obj2 এর age পরিবর্তন করা হলে 
+obj1 এর age ও পরিবর্তিত হয়।
+
+
+>>>>>>>>>>>Pass by Value<<<<<<<<<
+JavaScript এ যখন primitive data types (যেমন: number, string, boolean, null, undefined, symbol, এবং bigint) এর মান একটি ভ্যারিয়েবল থেকে অন্য ভ্যারিয়েবলে কপি করা হয়, তখন এটি pass by value হয়। এর অর্থ হল, একটি নতুন কপি তৈরি করা হয় এবং এটি মূল মানটির সাথে কোনো সম্পর্ক রাখে না। মূল মানটি পরিবর্তিত হলে কপি হওয়া মানটি পরিবর্তিত হয় না, এবং বিপরীতও সত্য।
+
+উদাহরণ:
+
+function modifyValue(value) {
+  value = value + 10;
+  console.log("Inside function: ", value);
+}
+
+let num = 5;
+modifyValue(num);
+console.log("Outside function: ", num);
+এখানে, num এর মান function এ কপি করা হয়েছে। function এর ভিতরে value পরিবর্তিত হলেও মূল num এর মান অপরিবর্তিত থাকে।
+
+>>>>>>>Pass by Reference<<<<<<<<<<<
+JavaScript এ যখন non-primitive data types (যেমন: objects এবং arrays) এর মান একটি ভ্যারিয়েবল থেকে অন্য ভ্যারিয়েবলে কপি করা হয়, তখন এটি pass by reference হয়। এর অর্থ হল, মূল মানটির reference কপি করা হয়, এবং উভয় ভ্যারিয়েবল একই মেমরি লোকেশনের সাথে সংযুক্ত থাকে। ফলে, একটিতে কোনো পরিবর্তন করলে অন্যটিতে প্রভাব পড়ে।
+উদাহরণ:
+
+function modifyObject(obj) {
+  obj.name = "Doe";
+  console.log("Inside function: ", obj);
+}
+
+let person = { name: "John" };
+modifyObject(person);
+console.log("Outside function: ", person);
+
+সংক্ষেপে:
+Pass by Value: Primitive types (number, string, ইত্যাদি) এর ক্ষেত্রে ব্যবহৃত হয়, যেখানে মানটি কপি করা হয়।
+Pass by Reference: Non-primitive types (object, array) এর ক্ষেত্রে ব্যবহৃত হয়, যেখানে reference কপি করা হয়।
+
+
+javaScript-এ, "shallow copy" এবং "deep copy" মূলত কপি করার দুটি পদ্ধতি যা জাভাস্ক্রিপ্টে অবজেক্ট এবং অ্যারের জন্য ব্যবহৃত হয়। এখন এদের বিস্তারিতভাবে আলোচনা করা যাক।
+
+>>>>>>>>>>Shallow Copy<<<<<<<<<<
+Shallow copy হল একটি অবজেক্টের সরল কপি, যা শুধুমাত্র সেই অবজেক্টের উপরের স্তরের প্রোপার্টিগুলির কপি করে। এটি আসল অবজেক্টের ভেতরে থাকা নেস্টেড অবজেক্টগুলির (যদি থাকে) কপি করে না। এর মানে হল, shallow copy করলে আসল অবজেক্টের নেস্টেড অবজেক্টের রেফারেন্স থাকবে।
+
+>>Object.assign() ব্যবহার করে:
+উদাহরণ:
+const original = { a: 1, b: { c: 2 } };
+const shallowCopy = Object.assign({}, original);
+shallowCopy.b.c = 3;
+console.log(original.b.c); // 3, কারণ এটি নেস্টেড অবজেক্টের রেফারেন্স কপি করেছে
+
+>>Spread operator (...) ব্যবহার করে:
+const original = { a: 1, b: { c: 2 } };
+const shallowCopy = { ...original };
+shallowCopy.b.c = 3;
+console.log(original.b.c); // 3, একই কারণে
+
+
+>>>>>Deep Copy<<<<<<
+Deep copy হল একটি অবজেক্টের সম্পূর্ণ কপি, যার ফলে আসল অবজেক্টের সকল স্তরের প্রোপার্টির কপি করা হয়। অর্থাৎ, নেস্টেড অবজেক্টগুলির কপি তৈরী হয় এবং আসল অবজেক্টের সাথে কোন সম্পর্ক থাকে না।
+
+উদাহরণ:
+
+JSON.stringify() এবং JSON.parse() ব্যবহার করে:
+
+const original = { a: 1, b: { c: 2 } };
+const deepCopy = JSON.parse(JSON.stringify(original));
+deepCopy.b.c = 3;
+console.log(original.b.c); // 2, কারণ এটি সম্পূর্ণ নতুন অবজেক্টের কপি করেছে
+
+Note: Shallow কপি করলেও নেস্টেড অবজেক্ট কে চেঞ্জ করা যায় তখন আসল অবজেক্ট এর নেস্টেড ডাটা চেঞ্জ হয়ে যায়
+তখন object.assign({},) কাজ করবে না
+কিন্তু যদি আমরা চাই যে এমন ভাবে কপি করতে যাতে main অবজেক্ট এর নেস্টেড ডাটা ও মোডিফাই হবে না তখন
+json.stringify() use করলে main অবজেক্ট এর নেস্টেড ডাটা চেঞ্জ হবে না
+main কথা হলো যদি প্লেইন অবজেক্ট হয় সেটা object.assign({},) কাজ করবে তখন main অবজেক্ট এর সাথে কপি অবজেক্ট এর কোনো রেফারেন্স থাকবে না তখন শুধু কপি অবজেক্ট এর ডাটা মোডিফাই হবে main অবজেক্ট এর ডাটা মোডিফাই হবে না
+
+সংক্ষেপে:
+Shallow Copy: উপরের স্তরের প্রোপার্টিগুলির কপি করে এবং নেস্টেড অবজেক্টগুলির রেফারেন্স কপি করে। উদাহরণ: Object.assign(), Spread operator (...).
+Deep Copy: সকল স্তরের প্রোপার্টির সম্পূর্ণ নতুন কপি তৈরি করে। উদাহরণ: JSON.stringify() এবং JSON.parse(), lodash.cloneDeep().
+
+
+>>>>>>>javaScript-এ "mutable" এবং "immutable" শব্দ দুটি প্রায়ই ব্যবহৃত হয় বিভিন্ন ধরনের ডেটা এবং ডেটা স্ট্রাকচার নিয়ে আলোচনা করার সময়।<<<<<<<
+
+>>Mutable
+Mutable (পরিবর্তনযোগ্য) মানে হল এমন কিছু যা পরিবর্তন করা যায়। জাভাস্ক্রিপ্টে কিছু ডেটা টাইপ এবং অবজেক্ট mutable, অর্থাৎ আপনি তাদের মান পরিবর্তন করতে পারবেন।
+
+উদাহরণ:
+
+1.অবজেক্ট:
+let person = { name: "John", age: 30 };
+person.age = 31; // অবজেক্টের প্রোপার্টি পরিবর্তন করা যাচ্ছে
+console.log(person.age); // 31
+
+2.অ্যারে:
+let numbers = [1, 2, 3];
+numbers.push(4); // অ্যারেতে নতুন আইটেম যোগ করা হচ্ছে
+console.log(numbers); // [1, 2, 3, 4]
+
+>>Immutable
+Immutable (অপরিবর্তনযোগ্য) মানে হল এমন কিছু যা পরিবর্তন করা যায় না। একবার তৈরি হওয়ার পর এই ধরনের ডেটার মান পরিবর্তন করা সম্ভব নয়। জাভাস্ক্রিপ্টে প্রাথমিক ডেটা টাইপগুলি (যেমন, স্ট্রিং, সংখ্যা, বুলিয়ান) immutable।
+
+উদাহরণ:
+
+1.স্ট্রিং:
+let greeting = "Hello";
+greeting[0] = "h"; // স্ট্রিং পরিবর্তন করা সম্ভব নয়
+console.log(greeting); // "Hello"
+
+2.সংখ্যা:
+let num = 10;
+num = num + 5; // নতুন সংখ্যা তৈরি হচ্ছে, আসল সংখ্যাটি পরিবর্তন হচ্ছে না
+console.log(num); // 15
+
+
+>>Mutable এবং Immutable ডেটা টাইপের তুলনা<<
+Mutable:
+
+অবজেক্ট
+অ্যারে
+ফাংশন
+Immutable:
+
+স্ট্রিং
+সংখ্যা
+বুলিয়ান
+নাল
+আনডিফাইন্ড
+
+সংক্ষেপে:
+Mutable (পরিবর্তনযোগ্য): যে ডেটা টাইপ বা অবজেক্টগুলি পরিবর্তন করা যায়, যেমন অবজেক্ট, অ্যারে।
+Immutable (অপরিবর্তনযোগ্য): যে ডেটা টাইপগুলি পরিবর্তন করা যায় না, যেমন স্ট্রিং, সংখ্যা, বুলিয়ান।
+Mutable ডেটা টাইপ পরিবর্তন করা সম্ভব, কিন্তু Immutable ডেটা টাইপ পরিবর্তন করা সম্ভব নয়। Immutable ডেটা টাইপ ব্যবহার করলে কোডে কম বাগ এবং অধিক পূর্বানুমানযোগ্যতা নিশ্চিত হয়।
